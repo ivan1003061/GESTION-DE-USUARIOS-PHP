@@ -1,26 +1,18 @@
 <?php
-include("Usuario.php");
-$u = new Usuario();
-$usuarios = $u->listar();
+include "conexion.php";
+
+$sql = "SELECT * FROM usuario";
+$resultado = mysqli_query($conexion, $sql);
+
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>Nombre</th><th>Email</th></tr>";
+while($fila = mysqli_fetch_assoc($resultado)){
+    echo "<tr>";
+    echo "<td>".$fila['id']."</td>";
+    echo "<td>".$fila['nombre']."</td>";
+    echo "<td>".$fila['email']."</td>";
+    echo "</tr>";
+}
+echo "</table>";
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Usuarios</title>
-</head>
-<body>
-    <h2>Usuarios Registrados</h2>
-    <a href="index.php">Nuevo usuario</a><br><br>
-    <table border="1" cellpadding="6">
-        <tr><th>ID</th><th>Nombre</th><th>Email</th></tr>
-        <?php foreach($usuarios as $fila){ ?>
-            <tr>
-                <td><?php echo $fila['id']; ?></td>
-                <td><?php echo $fila['nombre']; ?></td>
-                <td><?php echo $fila['email']; ?></td>
-            </tr>
-        <?php } ?>
-    </table>
-</body>
-</html>
+
